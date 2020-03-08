@@ -24,3 +24,8 @@ pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.next
 release.properties
+springboot-servicio-productos/mvnw
+
+springboot-servicio-productos/.mvn/wrapper/maven-wrapper.jar
+
+springboot-servicio-productos/.mvn/wrapper/maven-wrapper.properties
