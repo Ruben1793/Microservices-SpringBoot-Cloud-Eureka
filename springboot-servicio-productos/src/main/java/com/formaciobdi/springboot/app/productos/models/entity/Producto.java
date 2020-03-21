@@ -8,6 +8,8 @@ import java.util.Date;
 @Table(name = "productos")
 public class Producto implements Serializable {
 
+    private static final long serialVersionUID = 1285454306356845809L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,6 +20,9 @@ public class Producto implements Serializable {
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
     private Date createAt;
+
+    @Transient
+    private int port;
 
     public Long getId() {
         return id;
@@ -49,6 +54,14 @@ public class Producto implements Serializable {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
     @Override

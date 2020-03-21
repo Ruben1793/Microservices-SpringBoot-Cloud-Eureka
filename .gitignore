@@ -29,3 +29,9 @@ springboot-servicio-productos/mvnw
 springboot-servicio-productos/.mvn/wrapper/maven-wrapper.jar
 
 springboot-servicio-productos/.mvn/wrapper/maven-wrapper.properties
+
+springboot-servicio-items/.mvn/wrapper/maven-wrapper.jar
+
+springboot-servicio-items/.mvn/wrapper/
+
+springboot-servicio-items/mvnw
