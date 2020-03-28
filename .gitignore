@@ -35,3 +35,7 @@ springboot-servicio-items/.mvn/wrapper/maven-wrapper.jar
 springboot-servicio-items/.mvn/wrapper/
 
 springboot-servicio-items/mvnw
+
+springboot-servicio-eureka-server/.mvn/wrapper/
+
+springboot-servicio-eureka-server/mvnw
