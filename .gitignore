@@ -39,3 +39,7 @@ springboot-servicio-items/mvnw
 springboot-servicio-eureka-server/.mvn/wrapper/
 
 springboot-servicio-eureka-server/mvnw
+
+springboot-servicio-zuul-server/mvnw
+
+springboot-servicio-zuul-server/.mvn/wrapper/
