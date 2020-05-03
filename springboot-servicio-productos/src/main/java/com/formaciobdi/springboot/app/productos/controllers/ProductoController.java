@@ -5,9 +5,8 @@ import com.formaciobdi.springboot.app.productos.models.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +34,27 @@ public class ProductoController {
         Producto producto = productoService.findById(id);
         producto.setPort(port);
         return producto;
+    }
+
+    @PostMapping("/crear")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Producto crear(@RequestBody Producto producto) {
+        return productoService.save(producto);
+    }
+
+    @PutMapping("/editar/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Producto editar (@RequestBody Producto producto, @PathVariable Long id) {
+        Producto productoInDb = productoService.findById(id);
+        productoInDb.setNombre(producto.getNombre());
+        productoInDb.setPrecio(producto.getPrecio());
+        return productoService.save(productoInDb);
+    }
+
+    @DeleteMapping("/eliminar/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        productoService.deleteById(id);
     }
 
 }
