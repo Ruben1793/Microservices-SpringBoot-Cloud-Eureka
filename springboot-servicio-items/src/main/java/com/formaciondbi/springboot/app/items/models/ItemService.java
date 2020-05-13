@@ -1,5 +1,7 @@
 package com.formaciondbi.springboot.app.items.models;
 
+import com.fomaciondb.springboot.app.commons.models.entity.Producto;
+
 import java.util.List;
 
 public interface ItemService {

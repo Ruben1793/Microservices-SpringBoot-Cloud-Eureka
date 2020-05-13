@@ -1,8 +1,8 @@
 package com.formaciondbi.springboot.app.items.controllers;
 
+import com.fomaciondb.springboot.app.commons.models.entity.Producto;
 import com.formaciondbi.springboot.app.items.models.Item;
 import com.formaciondbi.springboot.app.items.models.ItemService;
-import com.formaciondbi.springboot.app.items.models.Producto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

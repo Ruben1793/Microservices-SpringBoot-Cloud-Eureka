@@ -1,7 +1,9 @@
 package com.formaciondbi.springboot.app.items.models;
 
+import com.fomaciondb.springboot.app.commons.models.entity.Producto;
+
 public class Item {
-    private  Producto producto;
+    private Producto producto;
     private Integer cantidad;
 
     public Item() {}

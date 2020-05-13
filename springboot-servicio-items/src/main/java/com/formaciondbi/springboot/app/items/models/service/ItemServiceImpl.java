@@ -1,8 +1,8 @@
 package com.formaciondbi.springboot.app.items.models.service;
 
+import com.fomaciondb.springboot.app.commons.models.entity.Producto;
 import com.formaciondbi.springboot.app.items.models.Item;
 import com.formaciondbi.springboot.app.items.models.ItemService;
-import com.formaciondbi.springboot.app.items.models.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
