@@ -47,3 +47,7 @@ springboot-servicio-zuul-server/.mvn/wrapper/
 springboot-servicio-config-server/.mvn/wrapper/
 
 springboot-servicio-config-server/mvnw
+
+springboot-servicio-commons/mvnw
+
+springboot-servicio-commons/.mvn/wrapper/
