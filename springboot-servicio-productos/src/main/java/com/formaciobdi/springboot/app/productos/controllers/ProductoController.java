@@ -1,14 +1,12 @@
 package com.formaciobdi.springboot.app.productos.controllers;
 
-import com.formaciobdi.springboot.app.productos.models.entity.Producto;
+import com.fomaciondb.springboot.app.commons.models.entity.Producto;
 import com.formaciobdi.springboot.app.productos.models.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
