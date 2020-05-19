@@ -2,6 +2,7 @@ package com.formacionbdi.springboot.app.usuarios.models.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -22,11 +23,24 @@ public class Usuario implements Serializable {
     @Column(unique = true, length = 100)
     private String email;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "role_id"})})
+    private List<Role> roles;
+
     private Boolean enabled;
 
     private String nombre;
 
     private String apellido;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
