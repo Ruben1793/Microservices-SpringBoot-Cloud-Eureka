@@ -55,3 +55,7 @@ springboot-servicio-commons/.mvn/wrapper/
 springboot-servicio-usuarios/mvnw
 
 springboot-servicio-usuarios/.mvn/wrapper/
+
+springboot-servicio-usuarios-commons/.mvn/wrapper/
+
+springboot-servicio-usuarios-commons/mvnw
