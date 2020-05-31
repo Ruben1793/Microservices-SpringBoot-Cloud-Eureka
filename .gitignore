@@ -59,3 +59,7 @@ springboot-servicio-usuarios/.mvn/wrapper/
 springboot-servicio-usuarios-commons/.mvn/wrapper/
 
 springboot-servicio-usuarios-commons/mvnw
+
+springboot-servicio-oauth/mvnw
+
+springboot-servicio-oauth/.mvn/wrapper/
