@@ -70,7 +70,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey(env.getProperty("config.security.oauth.jwt.key"));
-
         return converter;
     }
 }
