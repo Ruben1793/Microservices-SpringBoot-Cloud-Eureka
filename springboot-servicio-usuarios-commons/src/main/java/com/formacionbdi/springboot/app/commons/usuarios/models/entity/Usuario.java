@@ -34,6 +34,8 @@ public class Usuario implements Serializable {
 
     private String apellido;
 
+    private Integer intentos;
+
     public List<Role> getRoles() {
         return roles;
     }
@@ -96,5 +98,13 @@ public class Usuario implements Serializable {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public Integer getIntentos() {
+        return intentos;
+    }
+
+    public void setIntentos(Integer intetos) {
+        this.intentos = intetos;
     }
 }
