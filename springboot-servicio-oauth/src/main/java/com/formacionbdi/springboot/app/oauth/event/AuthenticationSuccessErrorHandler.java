@@ -1,5 +1,6 @@
 package com.formacionbdi.springboot.app.oauth.event;
 
+import brave.Tracer;
 import com.formacionbdi.springboot.app.commons.usuarios.models.entity.Usuario;
 import com.formacionbdi.springboot.app.oauth.services.IUsuarioService;
 import feign.FeignException;
@@ -19,6 +20,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 
     @Autowired
     private IUsuarioService usuarioService;
+
+    @Autowired
+    private Tracer tracer;
 
     @Override
     public void publishAuthenticationSuccess(Authentication authentication) {
@@ -67,6 +71,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
             }
 
             usuarioService.update(usuario, usuario.getId());
+            tracer.currentSpan().tag("error.mensaje",errors.toString());
 
         } catch (FeignException e) {
             log.error(String.format("El usuario %s no existe en el sistema", authentication.getName()));
