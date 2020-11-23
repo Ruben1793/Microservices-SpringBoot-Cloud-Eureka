@@ -38,8 +38,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/security/oauth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/productos/listar", "/api/items/listar", "/api/usuarios/usuarios").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/productos/ver/{id}",
-                        "/api/items/ver/{id}/cantidad/{cantidad}",
-                        "/api/usuarios/usuarios/{id}").hasAnyRole("ADMIN", "USER")
+                        "/api/items/ver/{id}/cantidad/{cantidad}", "/api/usuarios/usuarios/{id}").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/api/productos/**", "/api/items/**", "/api/usuarios/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().cors().configurationSource(corsConfigurationSource());
@@ -57,7 +56,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         return source;
     }
 
-    public FilterRegistrationBean<CorsFilter> corsFiler() {
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
         CorsFilter filter = new CorsFilter(corsConfigurationSource());
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(filter);
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
