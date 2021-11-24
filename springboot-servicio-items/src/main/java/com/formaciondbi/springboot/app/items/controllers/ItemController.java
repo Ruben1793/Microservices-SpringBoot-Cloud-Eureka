@@ -3,12 +3,14 @@ package com.formaciondbi.springboot.app.items.controllers;
 import com.fomaciondb.springboot.app.commons.models.entity.Producto;
 import com.formaciondbi.springboot.app.items.models.Item;
 import com.formaciondbi.springboot.app.items.models.ItemService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -18,12 +20,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @RefreshScope
 @RestController
 public class ItemController {
 
     private static Logger log = LoggerFactory.getLogger(ItemController.class);
+
+    @Autowired
+    private CircuitBreakerFactory cbFactory;
 
     @Autowired
     private Environment env;
@@ -36,17 +42,33 @@ public class ItemController {
     private String texto;
 
     @GetMapping("listar")
-    public List<Item> listar(){
+    public List<Item> listar(@RequestParam(name="nombre", required= false) String nombre, @RequestHeader(name="token-request", required = false) String token){
+        System.out.println(nombre);
+        System.out.println(token);
         return itemService.findAll();
     }
 
-    @HystrixCommand(fallbackMethod = "alternativo")
+    //@HystrixCommand(fallbackMethod = "alternativo")
     @GetMapping("/ver/{id}/cantidad/{cantidad}")
     public Item detalle(@PathVariable Long id, @PathVariable Integer cantidad){
+        return cbFactory.create("items")
+                .run(() -> itemService.findById(id, cantidad), e -> alternativo(id, cantidad, e));
+    }
+
+    @CircuitBreaker(name = "items", fallbackMethod = "alternativo")
+    @GetMapping("/ver2/{id}/cantidad/{cantidad}")
+    public Item detalle2(@PathVariable Long id, @PathVariable Integer cantidad){
         return itemService.findById(id, cantidad);
     }
 
-    public Item alternativo(Long id, Integer cantidad){
+    @CircuitBreaker(name = "items", fallbackMethod = "alternativo2")
+    @TimeLimiter(name = "items")
+    @GetMapping("/ver3/{id}/cantidad/{cantidad}")
+    public CompletableFuture<Item> detalle3(@PathVariable Long id, @PathVariable Integer cantidad){
+        return CompletableFuture.supplyAsync(() ->  itemService.findById(id, cantidad));
+    }
+
+    public Item alternativo(Long id, Integer cantidad, Throwable e){
         Item item = new Item();
         Producto producto = new Producto();
 
@@ -56,6 +78,18 @@ public class ItemController {
         producto.setPrecio(500.00);
         item.setProducto(producto);
         return item;
+    }
+
+    public CompletableFuture<Item> alternativo2(Long id, Integer cantidad, Throwable e){
+        Item item = new Item();
+        Producto producto = new Producto();
+
+        item.setCantidad(cantidad);
+        producto.setId(id);
+        producto.setNombre("Camara Sony");
+        producto.setPrecio(500.00);
+        item.setProducto(producto);
+        return CompletableFuture.supplyAsync(() -> item);
     }
 
     @GetMapping("/obtener-config")
